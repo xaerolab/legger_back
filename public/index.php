@@ -72,7 +72,7 @@ $app->get('/lead/all', function (Request $request, Response $response): Response
     }
 });
 
-//POST
+//POST add lead
 $app->post('/lead/add', function (Request $request, Response $response): Response {
       $data = $request->getParsedBody();
  
@@ -147,6 +147,39 @@ $app->post('/lead/add', function (Request $request, Response $response): Respons
 $app->options('/lead/add', function (Request $request, Response $response): Response {
     // Do nothing here. Just return the response.
     return $response;
+});
+
+//POST login
+$app->post('/login', function (Request $request, Response $response): Response{
+   $data = $request->getParsedBody();
+
+   $usuario = $data["usuario"];
+   $clave = hash('sha512', $data["clave"]);
+
+   $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND clave = '$clave'";
+
+    try {
+      $db = new Db();
+      $conn = $db->connect();
+      $stmt = $conn->query($sql);
+      $customers = $stmt->fetchAll(PDO::FETCH_OBJ);
+      $db = null;
+     
+      $response->getBody()->write(json_encode($customers));
+      return $response
+        ->withHeader('content-type', 'application/json')
+        ->withStatus(200);
+    } catch (PDOException $e) {
+      $error = array(
+        "message" => $e->getMessage()
+      );
+
+      $response->getBody()->write(json_encode($error));
+      return $response
+        ->withHeader('content-type', 'application/json')
+        ->withStatus(500);
+    }
+    
 });
 
 $app->run();

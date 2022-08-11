@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-08-2022 a las 16:26:54
+-- Tiempo de generación: 11-08-2022 a las 19:24:01
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.29
 
@@ -38,17 +38,9 @@ CREATE TABLE `registros` (
   `rtc` bigint(255) NOT NULL,
   `capitan` varchar(255) NOT NULL,
   `dir_ip` varchar(255) NOT NULL,
-  `terminos` varchar(255) NOT NULL
+  `terminos` varchar(255) NOT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `registros`
---
-
-INSERT INTO `registros` (`id_registro`, `nombre`, `nit`, `punto`, `equipo`, `ciudad`, `promotor`, `rtc`, `capitan`, `dir_ip`, `terminos`) VALUES
-(1, 'Sergio Gamboa', 123456789, 'Usaquen', 'Ganador', 'Bogota', 'Monster', 830654145, 'sgamboa', '200.14.52.88', 'acepta'),
-(2, 'Jairo Anibal Niño', 9876543210, 'Bosa', 'El Zoro', 'Cali', 'Red Bull', 654651321, 'janibal', '199.211.90.87', 'acepta'),
-(3, 'Pedro Paramo', 123456789, 'Bosa', 'Liquid', 'Santa Martha', 'Bavaria', 890444666, 'pparamo', '200.19.25.88', 'acepta');
 
 --
 -- Índices para tablas volcadas
@@ -68,7 +60,7 @@ ALTER TABLE `registros`
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
