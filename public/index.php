@@ -85,9 +85,20 @@ $app->post('/lead/add', function (Request $request, Response $response): Respons
        $rtc = $data["rtc"];
        $capitan = $data["capitan"];
        
-       //$dir_ip = $data["dir_ip"];
-       $dir_ip = "0.0.0.0";
-
+       //consultamos la direccion ip
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+           {
+             $dir_ip = $_SERVER['HTTP_CLIENT_IP'];
+           }
+         elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+           {
+             $dir_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+           }
+         else
+           {
+             $dir_ip = $_SERVER['REMOTE_ADDR'];
+           }
+      
        $terminos = $data["terminos"];
               
 
